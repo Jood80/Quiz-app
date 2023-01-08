@@ -35,9 +35,9 @@ export const Wrapper = styled.div`
     font-size: 2rem;
   }
 
-  h1 {
+  h3 {
     margin: 20px;
-    font-size: 70px;
+    font-size: 50px;
     font-weight:400;
     text-align: center;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

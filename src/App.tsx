@@ -27,8 +27,12 @@ const App = () => {
   const [gameOver, setGameOver] = useState(true)
 
   
-  console.log(questions);
-  
+
+  const randomDifficultyLevel = (): string => {
+    const keys = Object.values(Difficulty)    
+    return keys[ keys.length * Math.random() << 0];
+  };   
+
 
   const startTrivia = async () => {
     setLoading(true);
@@ -36,16 +40,17 @@ const App = () => {
 
     const newQuestions = await fetchQuizQuestions(
       TOTAL_QUESTIONS,
-      Difficulty.EASY
-    )
-
-    //TODO: error handling -try-catch block has to be added
-    setQuestions(newQuestions)
-    setScore(0)
-    setUserAnswers([])
-    setNumber(0)
-    setLoading(false)
-  
+      randomDifficultyLevel())
+    
+    try {
+      setQuestions(newQuestions)
+      setScore(0)
+      setUserAnswers([])
+      setNumber(0)
+      setLoading(false)
+    } catch(error) {
+      console.log(error)      
+    }
 }
 
   const checkAnswer = (event: React.MouseEvent<HTMLButtonElement>) => { 
@@ -82,7 +87,7 @@ const App = () => {
     <>
     <GlobalStyle/>
     <Wrapper>
-      <h1>React Quiz</h1>
+      <h3>Generic Computer Knowlege Quiz </h3>
       {gameOver || userAnswers.length === TOTAL_QUESTIONS ? (
         <button className="start" onClick={startTrivia}>Start</button>): null
       }
